@@ -17,6 +17,7 @@
   "author": "Fjell Team",
   "license": "MIT",
   "scripts": {
+    "lint": "eslint . --ext .js --fix",
     "clean": "rimraf dist",
     "build": "echo 'No build required for config files'",
     "test": "echo 'No tests required for config files'",
