@@ -1,4 +1,4 @@
-import baseConfig from './index.js';
+import baseConfig from "./index.js";
 
 /**
  * ESLint configuration for Fjell library packages
