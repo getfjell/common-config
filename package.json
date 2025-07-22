@@ -1,6 +1,6 @@
 {
   "name": "@fjell/eslint-config",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "Shared ESLint configuration for all Fjell projects",
   "main": "index.js",
   "exports": {
@@ -16,20 +16,36 @@
   ],
   "author": "Fjell Team",
   "license": "MIT",
+  "scripts": {
+    "lint": "eslint . --ext .js --fix",
+    "clean": "rimraf dist",
+    "build": "echo 'No build required for config files'",
+    "test": "echo 'No tests required for config files'",
+    "prepublishOnly": "pnpm run clean && pnpm run build"
+  },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^7.0.0",
-    "@typescript-eslint/parser": "^7.0.0",
-    "@eslint/js": "^9.0.0",
-    "@eslint/eslintrc": "^3.0.0"
+    "@eslint/eslintrc": "^3.3.1",
+    "@eslint/js": "^9.31.0",
+    "@typescript-eslint/eslint-plugin": "^8.38.0",
+    "@typescript-eslint/parser": "^8.38.0"
   },
   "peerDependencies": {
     "eslint": "^9.0.0",
     "typescript": "^5.0.0"
   },
+  "devDependencies": {
+    "rimraf": "^6.0.1"
+  },
   "files": [
     "index.js",
     "library.js",
     "app.js",
+    "eslint.config.mjs",
     "README.md"
-  ]
+  ],
+  "packageManager": "pnpm@10.13.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getfjell/eslint-config.git"
+  }
 }
