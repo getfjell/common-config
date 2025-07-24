@@ -17,7 +17,8 @@ import {
 export function createReactConfig(options = {}) {
   const {
     entryPoints = ["src/index.ts"],
-    outfile = "dist/index.js",
+    outfile,
+    outdir,
     external = [],
     platform = "neutral",
     format = "esm",
@@ -29,10 +30,13 @@ export function createReactConfig(options = {}) {
 
   const packageDeps = getExternalDependencies();
 
+  // Use outdir if provided, otherwise default to outfile
+  const outputConfig = outdir ? { outdir } : { outfile: outfile || "dist/index.js" };
+
   return {
     ...baseConfig,
     entryPoints,
-    outfile,
+    ...outputConfig,
     format,
     platform,
     jsx,
