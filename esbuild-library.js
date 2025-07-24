@@ -16,7 +16,8 @@ import {
 export function createLibraryConfig(options = {}) {
   const {
     entryPoints = ["src/index.ts"],
-    outfile = "dist/index.js",
+    outfile,
+    outdir,
     external = [],
     platform = "node",
     format = "esm",
@@ -26,10 +27,13 @@ export function createLibraryConfig(options = {}) {
 
   const packageDeps = getExternalDependencies();
 
+  // Use outdir if provided, otherwise default to outfile
+  const outputConfig = outdir ? { outdir } : { outfile: outfile || "dist/index.js" };
+
   return {
     ...baseConfig,
     entryPoints,
-    outfile,
+    ...outputConfig,
     format,
     platform,
     external: [
