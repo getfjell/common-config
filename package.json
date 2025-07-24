@@ -1,16 +1,22 @@
 {
   "name": "@fjell/eslint-config",
-  "version": "1.0.5",
-  "description": "Shared ESLint configuration for all Fjell projects",
+  "version": "1.1.0",
+  "description": "Shared ESLint and esbuild configuration for all Fjell projects",
   "type": "module",
   "main": "index.js",
   "exports": {
     ".": "./index.js",
     "./library": "./library.js",
-    "./app": "./app.js"
+    "./app": "./app.js",
+    "./esbuild": "./esbuild.js",
+    "./esbuild/library": "./esbuild-library.js",
+    "./esbuild/react": "./esbuild-react.js",
+    "./esbuild/cli": "./esbuild-cli.js",
+    "./esbuild/multi-file": "./esbuild-multi-file.js"
   },
   "keywords": [
     "eslint",
+    "esbuild",
     "config",
     "fjell",
     "typescript"
@@ -28,7 +34,8 @@
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.31.0",
     "@typescript-eslint/eslint-plugin": "^8.38.0",
-    "@typescript-eslint/parser": "^8.38.0"
+    "@typescript-eslint/parser": "^8.38.0",
+    "esbuild": "^0.24.2"
   },
   "peerDependencies": {
     "eslint": "^9.0.0",
@@ -41,6 +48,11 @@
     "index.js",
     "library.js",
     "app.js",
+    "esbuild.js",
+    "esbuild-library.js",
+    "esbuild-react.js",
+    "esbuild-cli.js",
+    "esbuild-multi-file.js",
     "eslint.config.mjs",
     "README.md"
   ],

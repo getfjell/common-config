@@ -119,4 +119,212 @@ When updating rules, consider:
 - Clear documentation of changes
 - Version bumping according to semver
 
+## Esbuild Configuration
+
+This package also provides standardized esbuild configurations for different project types, ensuring consistent build processes across the Fjell ecosystem.
+
+### Installation
+
+The esbuild configurations require esbuild as a peer dependency:
+
+```bash
+npm install --save-dev esbuild
+# or
+pnpm add -D esbuild
+```
+
+### Usage
+
+#### Node.js Libraries
+
+For most Fjell libraries (fjell-core, fjell-registry, fjell-cache, etc.):
+
+```js
+// build.js
+import buildLibrary from '@fjell/eslint-config/esbuild/library';
+
+// Simple usage with defaults
+buildLibrary();
+
+// With custom options
+buildLibrary({
+  entryPoints: ['src/index.ts'],
+  outfile: 'dist/index.js',
+  additionalExternals: ['@fjell/custom-package'],
+});
+```
+
+#### React/UI Libraries
+
+For React components and UI libraries (fjell-providers, fjell-docs-template):
+
+```js
+// build.js
+import buildReact from '@fjell/eslint-config/esbuild/react';
+
+buildReact({
+  entryPoints: ['src/index.ts'],
+  outfile: 'dist/index.js',
+});
+```
+
+#### CLI Tools and Scripts
+
+For executable CLI tools and scripts:
+
+```js
+// build.js
+import buildCli from '@fjell/eslint-config/esbuild/cli';
+
+buildCli({
+  entryPoints: ['src/cli.ts'],
+  outdir: 'dist',
+  executable: true, // Adds shebang banner
+  generateTypes: false, // CLI tools often don't need types
+});
+```
+
+#### Multi-File Compilation
+
+For projects that need to compile each TypeScript file separately (fjell-express-router):
+
+```js
+// build.js
+import buildMultiFile from '@fjell/eslint-config/esbuild/multi-file';
+
+buildMultiFile({
+  srcDir: './src',
+  outdir: './dist',
+});
+```
+
+### Watch Mode
+
+All configurations support watch mode:
+
+```bash
+node build.js --watch
+```
+
+### Advanced Usage
+
+#### Custom Configuration
+
+You can also import the configuration functions and use them with your own build logic:
+
+```js
+import { createLibraryConfig } from '@fjell/eslint-config/esbuild/library';
+import { build } from 'esbuild';
+
+const config = createLibraryConfig({
+  entryPoints: ['src/index.ts'],
+  outfile: 'dist/index.js',
+  minify: true, // Override defaults
+});
+
+await build(config);
+```
+
+#### Using Base Utilities
+
+```js
+import {
+  getExternalDependencies,
+  NODE_BUILTINS,
+  generateTypeScript,
+  createBuilder
+} from '@fjell/eslint-config/esbuild';
+
+// Get dependencies from package.json
+const deps = getExternalDependencies();
+
+// Generate TypeScript declarations
+await generateTypeScript({
+  strategy: 'temp-config',
+  outDir: 'dist',
+  rootDir: 'src'
+});
+```
+
+### Configuration Options
+
+#### Common Options (all configs)
+
+- `entryPoints`: Array of entry point files (default: `['src/index.ts']`)
+- `external`: Additional external dependencies to exclude from bundle
+- `additionalExternals`: Convenience option to add to the default externals
+- `platform`: Target platform - 'node', 'browser', or 'neutral'
+- `format`: Output format - 'esm', 'cjs', or 'iife'
+- All other esbuild options can be passed and will override defaults
+
+#### Library-Specific Options
+
+- `outfile`: Single output file path (default: `'dist/index.js'`)
+- `typeStrategy`: 'simple' or 'temp-config' for TypeScript generation
+
+#### React-Specific Options
+
+- `jsx`: JSX transform mode (default: `'automatic'`)
+- `jsxImportSource`: JSX import source (default: `'react'`)
+
+#### CLI-Specific Options
+
+- `outdir`: Output directory for CLI tools (default: `'dist'`)
+- `executable`: Add shebang banner for executable scripts (default: `true`)
+- `generateTypes`: Whether to generate TypeScript declarations (default: `false`)
+
+#### Multi-File Options
+
+- `srcDir`: Source directory to scan (default: `'./src'`)
+- `outdir`: Output directory (default: `'./dist'`)
+- `preserveSymlinks`: Preserve symbolic links (default: `false`)
+
+### TypeScript Declaration Generation
+
+All configurations automatically generate TypeScript declarations using one of two strategies:
+
+1. **Simple**: Direct `tsc` call with specific parameters
+2. **Temp Config**: Creates a temporary `tsconfig.build.json` for more control
+
+The strategy can be configured per build type or overridden in options.
+
+### Migration from Existing Builds
+
+1. **Install the shared config**: `pnpm add -D @fjell/eslint-config`
+2. **Replace your build script**: Choose the appropriate configuration type
+3. **Update package.json**: Change your build script to use the new configuration
+4. **Remove old build files**: Delete old `esbuild.config.js` or custom build scripts
+5. **Test**: Ensure the build output matches your expectations
+
+#### Example Migration
+
+**Before** (fjell-core/esbuild.config.js):
+```js
+// ... 57 lines of custom esbuild configuration
+```
+
+**After** (fjell-core/build.js):
+```js
+import buildLibrary from '@fjell/eslint-config/esbuild/library';
+buildLibrary();
+```
+
+**Package.json update**:
+```json
+{
+  "scripts": {
+    "build": "node build.js",
+    "build:watch": "node build.js --watch"
+  }
+}
+```
+
+### Benefits
+
+- **Consistency**: All projects use the same build patterns and optimizations
+- **Maintenance**: Updates to build logic are centralized
+- **Simplicity**: Reduce boilerplate in individual projects
+- **Best Practices**: Automatically includes proper externals, TypeScript generation, and watch mode
+- **Flexibility**: Easy to override or extend for specific project needs
+
 Built with love by the Fjell team.
