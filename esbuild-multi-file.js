@@ -54,7 +54,7 @@ export function createMultiFileConfig(options = {}) {
 
   console.log(`Found ${entryPoints.length} TypeScript files to compile`);
 
-  return {
+  const config = {
     ...baseConfig,
     entryPoints: entryPoints.map(file => `${srcDir}/${file}`),
     bundle: false, // Don't bundle - compile each file separately
@@ -62,18 +62,25 @@ export function createMultiFileConfig(options = {}) {
     format,
     platform,
     preserveSymlinks,
-    external: [
-      ...NODE_BUILTINS,
-      ...packageDeps,
-      ...additionalExternals,
-      ...external,
-    ],
     outExtension: {
       ".js": ".js"
     },
     metafile: true,
     ...overrides,
   };
+
+  // Only include external when bundling is enabled
+  // When bundle: false, esbuild doesn't resolve imports so external is not needed
+  if (config.bundle !== false) {
+    config.external = [
+      ...NODE_BUILTINS,
+      ...packageDeps,
+      ...additionalExternals,
+      ...external,
+    ];
+  }
+
+  return config;
 }
 
 /**
