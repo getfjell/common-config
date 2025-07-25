@@ -51,11 +51,15 @@ export function createLibraryConfig(options = {}) {
  * Build function for Node.js libraries
  */
 export function buildLibrary(options = {}) {
-  const config = createLibraryConfig(options);
+  // Separate build options from esbuild config options
+  const { generateTypes, typeStrategy, onSuccess, onError, ...esbuildOptions } = options;
+
+  const config = createLibraryConfig(esbuildOptions);
   const buildOptions = {
-    generateTypes: true,
-    typeStrategy: "temp-config",
-    ...options.buildOptions,
+    generateTypes: generateTypes !== undefined ? generateTypes : true,
+    typeStrategy: typeStrategy || "temp-config",
+    onSuccess,
+    onError,
   };
 
   return createBuilder(config, buildOptions);
