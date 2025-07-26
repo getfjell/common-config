@@ -6,8 +6,6 @@ Shared ESLint configuration for all Fjell projects. This package provides standa
 
 ```bash
 npm install --save-dev @fjell/eslint-config
-# or
-pnpm add -D @fjell/eslint-config
 ```
 
 ## Usage
@@ -130,7 +128,7 @@ The esbuild configurations require esbuild as a peer dependency:
 ```bash
 npm install --save-dev esbuild
 # or
-pnpm add -D esbuild
+npm install --save-dev esbuild
 ```
 
 ### Usage
@@ -290,7 +288,7 @@ The strategy can be configured per build type or overridden in options.
 
 ### Migration from Existing Builds
 
-1. **Install the shared config**: `pnpm add -D @fjell/eslint-config`
+1. **Install the shared config**: `npm install --save-dev @fjell/eslint-config`
 2. **Replace your build script**: Choose the appropriate configuration type
 3. **Update package.json**: Change your build script to use the new configuration
 4. **Remove old build files**: Delete old `esbuild.config.js` or custom build scripts
