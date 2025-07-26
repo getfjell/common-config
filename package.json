@@ -56,7 +56,6 @@
     "eslint.config.mjs",
     "README.md"
   ],
-  "packageManager": "pnpm@10.13.1",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/getfjell/eslint-config.git"
