@@ -1,6 +1,6 @@
 {
   "name": "@fjell/eslint-config",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Shared ESLint and esbuild configuration for all Fjell projects",
   "type": "module",
   "main": "index.js",
@@ -25,7 +25,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "eslint . --ext .js --fix",
-    "clean": "rimraf dist",
+    "clean": "rm -rf dist",
     "build": "echo 'No build required for config files'",
     "test": "echo 'No tests required for config files'",
     "prepublishOnly": "npm run clean && npm run build"
@@ -40,9 +40,6 @@
   "peerDependencies": {
     "eslint": "^9.0.0",
     "typescript": "^5.0.0"
-  },
-  "devDependencies": {
-    "rimraf": "^6.0.1"
   },
   "files": [
     "index.js",
