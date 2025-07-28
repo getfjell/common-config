@@ -10,28 +10,14 @@ export default [
     // Stricter rules for library source code
     files: ["src/**/*.ts", "src/**/*.tsx"],
     rules: {
-      "no-restricted-imports": ["error", {
-        patterns: [
-          {
-            group: ["..*", "src/*"],
-            message: "Use absolute imports instead of relative imports"
-          }
-        ]
-      }],
+      "no-restricted-imports": "off",
     },
   },
   {
     // More relaxed rules for tests
     files: ["tests/**/*.ts", "tests/**/*.tsx"],
     rules: {
-      "no-restricted-imports": ["error", {
-        patterns: [
-          {
-            group: ["src/*"],
-            message: "Use absolute imports instead"
-          }
-        ]
-      }],
+      "no-restricted-imports": "off",
       "max-lines": ["warn", 10000], // Tests can be longer
     },
   },

@@ -1,6 +1,6 @@
 {
   "name": "@fjell/eslint-config",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "Shared ESLint and esbuild configuration for all Fjell projects",
   "type": "module",
   "main": "index.js",
