@@ -31,7 +31,7 @@ export default [{
   rules: {
     // TypeScript specific rules
     "@typescript-eslint/no-unused-expressions": "off",
-    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-explicit-any": "off",
 

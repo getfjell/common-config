@@ -1,4 +1,5 @@
 import baseConfig from "./index.js";
+import importPlugin from "eslint-plugin-import";
 
 /**
  * ESLint configuration for Fjell library packages
@@ -7,10 +8,17 @@ import baseConfig from "./index.js";
 export default [
   ...baseConfig,
   {
+    plugins: {
+      import: importPlugin,
+    },
+  },
+  {
     // Stricter rules for library source code
     files: ["src/**/*.ts", "src/**/*.tsx"],
     rules: {
       "no-restricted-imports": "off",
+      // Don't require extensions for TypeScript files
+      "import/extensions": "off",
     },
   },
   {
@@ -19,6 +27,8 @@ export default [
     rules: {
       "no-restricted-imports": "off",
       "max-lines": ["warn", 10000], // Tests can be longer
+      // Don't require extensions for TypeScript files
+      "import/extensions": "off",
     },
   },
   {
@@ -27,6 +37,8 @@ export default [
     rules: {
       "no-restricted-imports": "off",
       "max-lines": ["warn", 2000], // Examples should be concise
+      // Don't require extensions for TypeScript files
+      "import/extensions": "off",
     },
   },
 ];
