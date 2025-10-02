@@ -1,6 +1,6 @@
 {
   "name": "@fjell/eslint-config",
-  "version": "1.1.24",
+  "version": "1.1.25",
   "description": "Shared ESLint and esbuild configuration for all Fjell projects",
   "type": "module",
   "main": "index.js",
@@ -28,6 +28,7 @@
     "clean": "rm -rf dist",
     "build": "echo 'No build required for config files'",
     "test": "echo 'No tests required for config files'",
+    "precommit": "npm run clean && npm run lint && npm run build && npm run test",
     "prepublishOnly": "npm run clean && npm run build"
   },
   "dependencies": {
