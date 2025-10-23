@@ -2,7 +2,7 @@
 /* global console, process */
 import { build, context, analyzeMetafile } from "esbuild";
 import { readFileSync, writeFileSync, existsSync } from "fs";
-import { execSync } from "child_process";
+import { execSync, execFileSync } from "child_process";
 
 /**
  * Read dependencies from package.json to mark them as external
@@ -78,7 +78,14 @@ export async function generateTypeScript(options = {}) {
       }
     } else {
       // Simple strategy - direct tsc call
-      execSync(`npx tsc --emitDeclarationOnly --declaration --declarationDir ${outDir} --rootDir ${rootDir} ${entryPoint}`, {
+      execFileSync("npx", [
+        "tsc",
+        "--emitDeclarationOnly",
+        "--declaration",
+        "--declarationDir", outDir,
+        "--rootDir", rootDir,
+        entryPoint
+      ], {
         stdio: "inherit"
       });
     }
