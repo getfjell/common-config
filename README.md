@@ -1,11 +1,11 @@
-# @fjell/eslint-config
+# @fjell/common-config
 
 Shared ESLint configuration for all Fjell projects. This package provides standardized linting rules to ensure consistent code quality and style across the entire Fjell ecosystem.
 
 ## Installation
 
 ```bash
-npm install --save-dev @fjell/eslint-config
+npm install --save-dev @fjell/common-config
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ The base configuration includes all common rules suitable for most TypeScript pr
 
 ```js
 // eslint.config.mjs
-import fjellConfig from '@fjell/eslint-config';
+import fjellConfig from '@fjell/common-config';
 
 export default fjellConfig;
 ```
@@ -29,7 +29,7 @@ For library packages, use the library configuration which includes stricter impo
 
 ```js
 // eslint.config.mjs
-import fjellConfig from '@fjell/eslint-config/library';
+import fjellConfig from '@fjell/common-config/library';
 
 export default fjellConfig;
 ```
@@ -40,7 +40,7 @@ For application packages (docs sites, web apps), use the app configuration with 
 
 ```js
 // eslint.config.mjs
-import fjellConfig from '@fjell/eslint-config/app';
+import fjellConfig from '@fjell/common-config/app';
 
 export default fjellConfig;
 ```
@@ -81,7 +81,7 @@ You can extend any configuration with project-specific rules:
 
 ```js
 // eslint.config.mjs
-import fjellConfig from '@fjell/eslint-config/library';
+import fjellConfig from '@fjell/common-config/library';
 
 export default [
   ...fjellConfig,
@@ -139,7 +139,7 @@ For most Fjell libraries (fjell-core, fjell-registry, fjell-cache, etc.):
 
 ```js
 // build.js
-import buildLibrary from '@fjell/eslint-config/esbuild/library';
+import buildLibrary from '@fjell/common-config/esbuild/library';
 
 // Simple usage with defaults
 buildLibrary();
@@ -158,7 +158,7 @@ For React components and UI libraries (fjell-providers, fjell-docs-template):
 
 ```js
 // build.js
-import buildReact from '@fjell/eslint-config/esbuild/react';
+import buildReact from '@fjell/common-config/esbuild/react';
 
 buildReact({
   entryPoints: ['src/index.ts'],
@@ -172,7 +172,7 @@ For executable CLI tools and scripts:
 
 ```js
 // build.js
-import buildCli from '@fjell/eslint-config/esbuild/cli';
+import buildCli from '@fjell/common-config/esbuild/cli';
 
 buildCli({
   entryPoints: ['src/cli.ts'],
@@ -188,7 +188,7 @@ For projects that need to compile each TypeScript file separately (fjell-express
 
 ```js
 // build.js
-import buildMultiFile from '@fjell/eslint-config/esbuild/multi-file';
+import buildMultiFile from '@fjell/common-config/esbuild/multi-file';
 
 buildMultiFile({
   srcDir: './src',
@@ -211,7 +211,7 @@ node build.js --watch
 You can also import the configuration functions and use them with your own build logic:
 
 ```js
-import { createLibraryConfig } from '@fjell/eslint-config/esbuild/library';
+import { createLibraryConfig } from '@fjell/common-config/esbuild/library';
 import { build } from 'esbuild';
 
 const config = createLibraryConfig({
@@ -231,7 +231,7 @@ import {
   NODE_BUILTINS,
   generateTypeScript,
   createBuilder
-} from '@fjell/eslint-config/esbuild';
+} from '@fjell/common-config/esbuild';
 
 // Get dependencies from package.json
 const deps = getExternalDependencies();
@@ -288,7 +288,7 @@ The strategy can be configured per build type or overridden in options.
 
 ### Migration from Existing Builds
 
-1. **Install the shared config**: `npm install --save-dev @fjell/eslint-config`
+1. **Install the shared config**: `npm install --save-dev @fjell/common-config`
 2. **Replace your build script**: Choose the appropriate configuration type
 3. **Update package.json**: Change your build script to use the new configuration
 4. **Remove old build files**: Delete old `esbuild.config.js` or custom build scripts
@@ -303,7 +303,7 @@ The strategy can be configured per build type or overridden in options.
 
 **After** (fjell-core/build.js):
 ```js
-import buildLibrary from '@fjell/eslint-config/esbuild/library';
+import buildLibrary from '@fjell/common-config/esbuild/library';
 buildLibrary();
 ```
 
