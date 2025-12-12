@@ -1,6 +1,6 @@
 # @fjell/common-config
 
-Shared ESLint configuration for all Fjell projects. This package provides standardized linting rules to ensure consistent code quality and style across the entire Fjell ecosystem.
+Shared ESLint and build configuration for all Fjell projects. This package provides standardized linting rules and build tools to ensure consistent code quality and style across the entire Fjell ecosystem.
 
 ## Installation
 
