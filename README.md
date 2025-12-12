@@ -330,3 +330,6 @@ TEST
 
 ## Version 1.1.35
 Updated npm publish workflow.
+
+## Version 1.1.36
+Minor version bump with workflow improvements.
