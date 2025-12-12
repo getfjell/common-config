@@ -154,7 +154,7 @@ buildLibrary({
 
 #### React/UI Libraries
 
-For React components and UI libraries (fjell-providers, fjell-docs-template):
+For React components and UI libraries (fjell-providers):
 
 ```js
 // build.js
