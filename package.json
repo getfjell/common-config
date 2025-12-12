@@ -1,6 +1,6 @@
 {
   "name": "@fjell/common-config",
-  "version": "1.1.33",
+  "version": "1.1.34",
   "description": "Shared ESLint, Typescript and other configuration for all Fjell projects",
   "type": "module",
   "main": "index.js",
