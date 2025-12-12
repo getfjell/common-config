@@ -327,3 +327,6 @@ buildLibrary();
 
 Built with love by the Fjell team.
 TEST
+
+## Version 1.1.35
+Updated npm publish workflow.
