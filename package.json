@@ -56,6 +56,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/getfjell/common-config.git"
+    "url": "git+https://github.com/fjellgrunn/common-config.git"
   }
 }
