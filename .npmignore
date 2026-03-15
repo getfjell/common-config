@@ -20,3 +20,8 @@ yarn.lock
 vite.config.ts
 eslint.config.mjs
 README.md
+# Include AI integration guides
+!guide/
+!guide/*.md
+!guide/**/*.md
+

@@ -52,7 +52,8 @@
     "esbuild-cli.js",
     "esbuild-multi-file.js",
     "eslint.config.mjs",
-    "README.md"
+    "README.md",
+    "guide"
   ],
   "repository": {
     "type": "git",
