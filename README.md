@@ -25,7 +25,7 @@ export default fjellConfig;
 
 ### Library Configuration
 
-For library packages, use the library configuration which includes stricter import rules and special handling for examples and tests:
+For library packages, use the library configuration which includes special handling for examples and tests:
 
 ```js
 // eslint.config.mjs
@@ -56,8 +56,8 @@ export default fjellConfig;
 
 ### Library-Specific Rules
 
-- **Import Restrictions**: Enforces absolute imports over relative imports in source code
-- **Examples**: Relaxed rules for `examples/` directory allowing any import style
+- **Import Restrictions**: `no-restricted-imports` is currently off for `src/`, `tests/`, and `examples/` (relative imports are allowed)
+- **Examples**: Relaxed rules for `examples/` directory (longer-file limits still apply)
 - **Tests**: Allows longer files and more flexible import patterns
 
 ### App-Specific Rules
@@ -123,12 +123,12 @@ This package also provides standardized esbuild configurations for different pro
 
 ### Installation
 
-The esbuild configurations require esbuild as a peer dependency:
+`esbuild` is a direct dependency of `@fjell/common-config` (currently pinned to `0.25.11`). Consumer packages often also pin their own `esbuild` for local build scripts; keep those versions aligned to avoid duplicates.
+
+If you need esbuild available at the package root for a custom build script:
 
 ```bash
-npm install --save-dev esbuild
-# or
-npm install --save-dev esbuild
+npm install --save-dev esbuild@0.25.11
 ```
 
 ### Usage

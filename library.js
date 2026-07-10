@@ -2,7 +2,7 @@ import baseConfig from "./index.js";
 
 /**
  * ESLint configuration for Fjell library packages
- * Extends the base config with library-specific rules like import restrictions
+ * Extends the base config with library-specific overrides for src/tests/examples
  */
 export default [
   ...baseConfig,
