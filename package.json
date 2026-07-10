@@ -27,7 +27,7 @@
     "lint": "eslint . --ext .js --fix",
     "clean": "rm -rf dist",
     "build": "echo 'No build required for config files'",
-    "test": "echo 'No tests required for config files'",
+    "test": "node --test tests/**/*.test.js",
     "precommit": "npm run clean && npm run lint && npm run build && npm run test",
     "prepublishOnly": "npm run clean && npm run build"
   },

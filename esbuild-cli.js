@@ -23,8 +23,16 @@ export function createCliConfig(options = {}) {
     splitting = false,
     executable = true,
     additionalExternals = [],
-    ...overrides
+    ...rest
   } = options;
+
+  // Builder-only keys must never reach esbuild (it rejects unknown options)
+  const overrides = { ...rest };
+  delete overrides.generateTypes;
+  delete overrides.typeStrategy;
+  delete overrides.onSuccess;
+  delete overrides.onError;
+  delete overrides.buildOptions;
 
   const packageDeps = getExternalDependencies();
 
@@ -60,14 +68,19 @@ export function createCliConfig(options = {}) {
  * Build function for CLI tools
  */
 export function buildCli(options = {}) {
-  const config = createCliConfig(options);
-  const buildOptions = {
-    generateTypes: options.generateTypes ?? false, // CLI tools often don't need types
-    typeStrategy: "simple",
-    ...options.buildOptions,
+  // Separate build options from esbuild config options (esbuild rejects unknown keys)
+  const { generateTypes, typeStrategy, onSuccess, onError, buildOptions, ...esbuildOptions } = options;
+
+  const config = createCliConfig(esbuildOptions);
+  const resolvedBuildOptions = {
+    generateTypes: generateTypes ?? false, // CLI tools often don't need types
+    typeStrategy: typeStrategy || "simple",
+    onSuccess,
+    onError,
+    ...buildOptions,
   };
 
-  return createBuilder(config, buildOptions);
+  return createBuilder(config, resolvedBuildOptions);
 }
 
 /**

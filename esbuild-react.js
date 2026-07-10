@@ -25,8 +25,16 @@ export function createReactConfig(options = {}) {
     jsx = "automatic",
     jsxImportSource = "react",
     additionalExternals = [],
-    ...overrides
+    ...rest
   } = options;
+
+  // Builder-only keys must never reach esbuild (it rejects unknown options)
+  const overrides = { ...rest };
+  delete overrides.generateTypes;
+  delete overrides.typeStrategy;
+  delete overrides.onSuccess;
+  delete overrides.onError;
+  delete overrides.buildOptions;
 
   const packageDeps = getExternalDependencies();
 
@@ -57,14 +65,19 @@ export function createReactConfig(options = {}) {
  * Build function for React/UI libraries
  */
 export function buildReact(options = {}) {
-  const config = createReactConfig(options);
-  const buildOptions = {
-    generateTypes: true,
-    typeStrategy: "simple", // React projects often have complex type setups
-    ...options.buildOptions,
+  // Separate build options from esbuild config options (esbuild rejects unknown keys)
+  const { generateTypes, typeStrategy, onSuccess, onError, buildOptions, ...esbuildOptions } = options;
+
+  const config = createReactConfig(esbuildOptions);
+  const resolvedBuildOptions = {
+    generateTypes: generateTypes !== undefined ? generateTypes : true,
+    typeStrategy: typeStrategy || "simple", // React projects often have complex type setups
+    onSuccess,
+    onError,
+    ...buildOptions,
   };
 
-  return createBuilder(config, buildOptions);
+  return createBuilder(config, resolvedBuildOptions);
 }
 
 /**
