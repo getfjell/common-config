@@ -98,7 +98,7 @@ export default [
 
 1. Install this package
 2. Replace your existing `eslint.config.mjs` with the appropriate import
-3. Remove ESLint-related dependencies from your project (they're included here)
+3. Note: This package bundles ESLint plugins, but you should keep @eslint/js and eslint in your devDependencies for IDE integration
 4. Add any project-specific rules as extensions
 
 ## Rule Philosophy

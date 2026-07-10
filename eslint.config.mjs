@@ -11,7 +11,7 @@ export default [
   },
   // Rules for source files in ./src
   {
-    files: ["./src/**/*.js", "./src/**/*.mjs", "./src/**/*.ts", "./src/**/*.tsx"],
+    files: ["*.js", "*.mjs", "*.ts", "*.tsx"],
     languageOptions: {
       ecmaVersion: 2022,
       sourceType: "module",
