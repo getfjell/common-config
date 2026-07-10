@@ -22,8 +22,16 @@ export function createLibraryConfig(options = {}) {
     platform = "node",
     format = "esm",
     additionalExternals = [],
-    ...overrides
+    ...rest
   } = options;
+
+  // Builder-only keys must never reach esbuild (it rejects unknown options)
+  const overrides = { ...rest };
+  delete overrides.generateTypes;
+  delete overrides.typeStrategy;
+  delete overrides.onSuccess;
+  delete overrides.onError;
+  delete overrides.buildOptions;
 
   const packageDeps = getExternalDependencies();
 

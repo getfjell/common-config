@@ -1,6 +1,6 @@
 {
   "name": "@fjell/common-config",
-  "version": "1.1.41-dev.0",
+  "version": "1.1.41",
   "description": "Shared ESLint, Typescript and other configuration for all Fjell projects",
   "type": "module",
   "main": "index.js",
@@ -27,16 +27,16 @@
     "lint": "eslint . --ext .js --fix",
     "clean": "rm -rf dist",
     "build": "echo 'No build required for config files'",
-    "test": "echo 'No tests required for config files'",
+    "test": "node --test tests/**/*.test.js",
     "precommit": "npm run clean && npm run lint && npm run build && npm run test",
     "prepublishOnly": "npm run clean && npm run build"
   },
   "dependencies": {
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.39.1",
-    "@typescript-eslint/eslint-plugin": "^8.46.4",
-    "@typescript-eslint/parser": "^8.46.4",
-    "esbuild": "0.25.11"
+    "@typescript-eslint/eslint-plugin": "^8.63.0",
+    "@typescript-eslint/parser": "^8.63.0",
+    "esbuild": "0.28.1"
   },
   "peerDependencies": {
     "eslint": "^9.0.0",

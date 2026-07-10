@@ -46,8 +46,16 @@ export function createMultiFileConfig(options = {}) {
     format = "esm",
     preserveSymlinks = false,
     additionalExternals = [],
-    ...overrides
+    ...rest
   } = options;
+
+  // Builder-only keys must never reach esbuild (it rejects unknown options)
+  const overrides = { ...rest };
+  delete overrides.generateTypes;
+  delete overrides.typeStrategy;
+  delete overrides.onSuccess;
+  delete overrides.onError;
+  delete overrides.buildOptions;
 
   const packageDeps = getExternalDependencies();
   const entryPoints = getAllTsFiles(srcDir);
@@ -87,17 +95,21 @@ export function createMultiFileConfig(options = {}) {
  * Build function for multi-file compilation
  */
 export function buildMultiFile(options = {}) {
-  const config = createMultiFileConfig(options);
-  const buildOptions = {
-    generateTypes: true,
-    typeStrategy: "temp-config",
-    onSuccess: (result) => {
+  // Separate build options from esbuild config options (esbuild rejects unknown keys)
+  const { generateTypes, typeStrategy, onSuccess, onError, buildOptions, ...esbuildOptions } = options;
+
+  const config = createMultiFileConfig(esbuildOptions);
+  const resolvedBuildOptions = {
+    generateTypes: generateTypes !== undefined ? generateTypes : true,
+    typeStrategy: typeStrategy || "temp-config",
+    onSuccess: onSuccess || ((result) => {
       console.log(`Successfully compiled ${Object.keys(result.metafile?.outputs || {}).length} files`);
-    },
-    ...options.buildOptions,
+    }),
+    onError,
+    ...buildOptions,
   };
 
-  return createBuilder(config, buildOptions);
+  return createBuilder(config, resolvedBuildOptions);
 }
 
 /**
